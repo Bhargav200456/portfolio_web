@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { db } from "./firebase";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import Skills from "./Skills";
-
+import Exp from "./Exp";
+import Achievements from "./Achievements";
 
 function App() {
 
@@ -178,13 +179,13 @@ function App() {
             Projects
           </div>
 
-          <div className="item experience">
-            Experience
-          </div>
+          <div className="item experience" onClick={() => openSection("experience")}>
+  Experience
+</div>
 
-          <div className="item achievements">
-            Achievements
-          </div>
+        <div className="item achievements" onClick={() => openSection("achievements")}>
+  Achievements
+</div>
 
         </div>
       </main>
@@ -218,22 +219,28 @@ function App() {
 
             <div className="aboutProfile">
               <img src="/profile.jpeg" className="aboutProfileImg" />
-              <h2 className="aboutName">Bhargav KN</h2>
+              <h2
+  className="aboutName"
+  onClick={() => setProfileOpen(true)}
+  style={{ cursor: "pointer" }}
+>
+  Bhargav KN
+</h2>
             </div>
 
             <h2>About</h2>
 
             <p className="subtitle">
-              AI & Data Engineering focused developer building scalable systems
-              that transform complex data into actionable insights.
-            </p>
+  Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights. Passionate about building innovative solutions and continuously exploring new technologies.
+</p>
 
-            <div className="list">
-              <div className="listItem">AI & Data Engineering developer</div>
-              <div className="listItem">CS postgraduate (AI & ML)</div>
-              <div className="listItem">Knowledge graphs & pipelines</div>
-              <div className="listItem">Scalable system design</div>
-            </div>
+<div className="list">
+  <div className="listItem">Completed 10th & 12th – National Centre for Excellence</div>
+  <div className="listItem">BCA – Gitam (Deemed-to-be University)</div>
+  <div className="listItem">Pursuing MCA (AI & ML) – Jain (Deemed-to-be University)</div>
+  <div className="listItem">Highly driven in building impactful solutions with a strong commitment to delivering quality work consistently and meeting deadlines without compromise.</div>
+  
+</div>
 
           </div>
         </div>
@@ -246,8 +253,13 @@ function App() {
       {active === "skills" && (
   <Skills goHome={goHome} />
 )}
+{active === "experience" && (
+  <Exp goHome={goHome} />
+)}
       
-
+{active === "achievements" && (
+  <Achievements goHome={goHome} />
+)}
     </div>
     
   );

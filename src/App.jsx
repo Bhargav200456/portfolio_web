@@ -14,6 +14,18 @@ function App() {
   const [active, setActive] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
 
+  // ✅ MOBILE STATE (ADDED)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // ✅ FIREBASE LIKE STATE
   const [likes, setLikes] = useState(0);
 
@@ -80,66 +92,62 @@ function App() {
   return (
     <div className="app">
 
-      {/* 🔥 BACKGROUND ICONS (INLINE FLOAT FIX) */}
-      {/* 🔥 SCATTERED FLOATING ICONS */}
-<div
-  style={{
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    pointerEvents: "none",
-    zIndex: 0,
-    overflow: "hidden"
-  }}
->
-  {techIcons.map((icon, i) => {
-    const size = 28 + Math.random() * 20;
-    const duration = 10 + Math.random() * 10;
-    const delay = Math.random() * 5;
-
-    return (
-      <i
-        key={i}
-        className={icon}
+      {/* BACKGROUND ICONS */}
+      <div
         style={{
-          position: "absolute",
-          fontSize: `${size}px`,
-          opacity: 0.25,
-
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-
-          animation: `float${i} ${duration}s ease-in-out infinite`,
-          animationDelay: `${delay}s`
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 0,
+          overflow: "hidden"
         }}
-      />
-    );
-  })}
+      >
+        {techIcons.map((icon, i) => {
+          const size = 28 + Math.random() * 20;
+          const duration = 10 + Math.random() * 10;
+          const delay = Math.random() * 5;
 
-  {/* 🔥 RANDOMIZED FLOAT KEYFRAMES */}
-  <style>
-    {techIcons.map((_, i) => {
-      const x1 = Math.random() * 100 - 50;
-      const y1 = Math.random() * 100 - 50;
-      const x2 = Math.random() * 100 - 50;
-      const y2 = Math.random() * 100 - 50;
-      const x3 = Math.random() * 100 - 50;
-      const y3 = Math.random() * 100 - 50;
+          return (
+            <i
+              key={i}
+              className={icon}
+              style={{
+                position: "absolute",
+                fontSize: `${size}px`,
+                opacity: 0.25,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animation: `float${i} ${duration}s ease-in-out infinite`,
+                animationDelay: `${delay}s`
+              }}
+            />
+          );
+        })}
 
-      return `
-        @keyframes float${i} {
-          0% { transform: translate(0px, 0px); }
-          25% { transform: translate(${x1}px, ${y1}px); }
-          50% { transform: translate(${x2}px, ${y2}px); }
-          75% { transform: translate(${x3}px, ${y3}px); }
-          100% { transform: translate(0px, 0px); }
-        }
-      `;
-    }).join("\n")}
-  </style>
-</div>
+        <style>
+          {techIcons.map((_, i) => {
+            const x1 = Math.random() * 100 - 50;
+            const y1 = Math.random() * 100 - 50;
+            const x2 = Math.random() * 100 - 50;
+            const y2 = Math.random() * 100 - 50;
+            const x3 = Math.random() * 100 - 50;
+            const y3 = Math.random() * 100 - 50;
+
+            return `
+              @keyframes float${i} {
+                0% { transform: translate(0px, 0px); }
+                25% { transform: translate(${x1}px, ${y1}px); }
+                50% { transform: translate(${x2}px, ${y2}px); }
+                75% { transform: translate(${x3}px, ${y3}px); }
+                100% { transform: translate(0px, 0px); }
+              }
+            `;
+          }).join("\n")}
+        </style>
+      </div>
 
       {/* HEADER */}
       <header className="top">
@@ -148,12 +156,18 @@ function App() {
           <h1 className="name">Bhargav KN</h1>
         </div>
 
-        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            alignItems: "center",
+            flexDirection: isMobile ? "column" : "row"
+          }}
+        >
           <div className="about" onClick={() => openSection("about")}>
             About
           </div>
 
-          {/* ❤️ LIKE */}
           <div
             onClick={handleLike}
             style={{
@@ -169,24 +183,30 @@ function App() {
 
       {/* MAIN MENU */}
       <main className="center">
-        <div className="menu">
-
+        <div
+          className="menu"
+          style={{
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? "20px" : undefined,
+            alignItems: "center"
+          }}
+        >
           <div className="item skills" onClick={() => openSection("skills")}>
             Skills
           </div>
-            
+
           <div className="item projects" onClick={() => openSection("projects")}>
             Projects
           </div>
 
           <div className="item experience" onClick={() => openSection("experience")}>
-  Experience
-</div>
+            Experience
+          </div>
 
-        <div className="item achievements" onClick={() => openSection("achievements")}>
-  Achievements
-</div>
-
+          <div className="item achievements" onClick={() => openSection("achievements")}>
+            Achievements
+          </div>
         </div>
       </main>
 
@@ -220,48 +240,38 @@ function App() {
             <div className="aboutProfile">
               <img src="/profile.jpeg" className="aboutProfileImg" />
               <h2
-  className="aboutName"
-  onClick={() => setProfileOpen(true)}
-  style={{ cursor: "pointer" }}
->
-  Bhargav KN
-</h2>
+                className="aboutName"
+                onClick={() => setProfileOpen(true)}
+                style={{ cursor: "pointer" }}
+              >
+                Bhargav KN
+              </h2>
             </div>
 
             <h2>About</h2>
 
             <p className="subtitle">
-  Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights. Passionate about building innovative solutions and continuously exploring new technologies.
-</p>
+              Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights. Passionate about building innovative solutions and continuously exploring new technologies.
+            </p>
 
-<div className="list">
-  <div className="listItem">Completed 10th & 12th – National Centre for Excellence</div>
-  <div className="listItem">BCA – Gitam (Deemed-to-be University)</div>
-  <div className="listItem">Pursuing MCA (AI & ML) – Jain (Deemed-to-be University)</div>
-  <div className="listItem">Highly driven in building impactful solutions with a strong commitment to delivering quality work consistently and meeting deadlines without compromise.</div>
-  
-</div>
+            <div className="list">
+              <div className="listItem">Completed 10th & 12th – National Centre for Excellence</div>
+              <div className="listItem">BCA – Gitam (Deemed-to-be University)</div>
+              <div className="listItem">Pursuing MCA (AI & ML) – Jain (Deemed-to-be University)</div>
+              <div className="listItem">Highly driven in building impactful solutions with a strong commitment to delivering quality work consistently and meeting deadlines without compromise.</div>
+            </div>
 
           </div>
         </div>
       )}
 
       {/* PROJECTS */}
-      {active === "projects" && (
-        <Projects goHome={goHome} />
-      )}
-      {active === "skills" && (
-  <Skills goHome={goHome} />
-)}
-{active === "experience" && (
-  <Exp goHome={goHome} />
-)}
-      
-{active === "achievements" && (
-  <Achievements goHome={goHome} />
-)}
+      {active === "projects" && <Projects goHome={goHome} />}
+      {active === "skills" && <Skills goHome={goHome} />}
+      {active === "experience" && <Exp goHome={goHome} />}
+      {active === "achievements" && <Achievements goHome={goHome} />}
+
     </div>
-    
   );
 }
 

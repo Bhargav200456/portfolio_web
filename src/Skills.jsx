@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const skills = [
   { name: "Python", icon: "devicon-python-plain" },
@@ -17,6 +17,15 @@ const skills = [
 
 function Skills({ goHome }) {
   const [active, setActive] = useState(null);
+
+  // ✅ MOBILE DETECTION
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div
@@ -38,9 +47,24 @@ function Skills({ goHome }) {
           position: "relative"
         }}
       >
+
+        {/* ✅ TITLE ADDED */}
+        <h2
+          style={{
+            position: "absolute",
+            top: "20px",
+            width: "100%",
+            textAlign: "center"
+          }}
+        >
+          Skills
+        </h2>
+
         {skills.map((skill, i) => {
           const angle = (i / skills.length) * 2 * Math.PI;
-          const radius = 220;
+
+          // ✅ MOBILE RADIUS FIX
+          const radius = isMobile ? 120 : 220;
 
           const x = Math.cos(angle) * radius;
           const y = Math.sin(angle) * radius;
@@ -48,9 +72,19 @@ function Skills({ goHome }) {
           return (
             <div
               key={i}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-              onClick={goHome}   // 🔥 CLICK ANYWHERE
+              onMouseEnter={() => !isMobile && setActive(i)}
+              onMouseLeave={() => !isMobile && setActive(null)}
+
+              // ✅ TAP SUPPORT FOR MOBILE
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isMobile) {
+                  setActive(i === active ? null : i);
+                } else {
+                  goHome();
+                }
+              }}
+
               style={{
                 position: "absolute",
                 top: "50%",
@@ -69,14 +103,14 @@ function Skills({ goHome }) {
               <i
                 className={skill.icon}
                 style={{
-                  fontSize: "40px"
+                  fontSize: isMobile ? "28px" : "40px" // ✅ smaller on mobile
                 }}
               />
 
               <div
                 style={{
-                  marginTop: "8px",
-                  fontSize: "0.85rem",
+                  marginTop: "6px",
+                  fontSize: isMobile ? "0.75rem" : "0.85rem",
                   opacity: active === i ? 1 : 0.7,
                   transition: "0.3s"
                 }}

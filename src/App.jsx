@@ -2,22 +2,44 @@ import "./App.css";
 import { useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Projects from "./projects";
+import { useEffect } from "react";
+import { db } from "./firebase";
+import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 
 function App() {
 
   const [active, setActive] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
 
-  // ✅ LIKE STATE
-  const [likes, setLikes] = useState(() => {
-    const saved = localStorage.getItem("homeLikes");
-    return saved ? JSON.parse(saved) : 0;
-  });
+  // ✅ FIREBASE LIKE STATE
+  const [likes, setLikes] = useState(0);
 
-  const handleLike = () => {
-    const updated = likes + 1;
-    setLikes(updated);
-    localStorage.setItem("homeLikes", updated);
+  // ✅ FETCH LIKES FROM FIREBASE
+  useEffect(() => {
+    const fetchLikes = async () => {
+      const ref = doc(db, "likes", "main");
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        setLikes(snap.data().count);
+      } else {
+        await setDoc(ref, { count: 0 });
+      }
+    };
+
+    fetchLikes();
+  }, []);
+
+  // ✅ UPDATE LIKES IN FIREBASE
+  const handleLike = async () => {
+    const ref = doc(db, "likes", "main");
+
+    const newCount = likes + 1;
+    setLikes(newCount);
+
+    await updateDoc(ref, {
+      count: newCount
+    });
   };
 
   const techIcons = [
@@ -56,47 +78,65 @@ function App() {
     <div className="app">
 
       {/* 🔥 BACKGROUND ICONS (INLINE FLOAT FIX) */}
-      <div
+      {/* 🔥 SCATTERED FLOATING ICONS */}
+<div
+  style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    pointerEvents: "none",
+    zIndex: 0,
+    overflow: "hidden"
+  }}
+>
+  {techIcons.map((icon, i) => {
+    const size = 28 + Math.random() * 20;
+    const duration = 10 + Math.random() * 10;
+    const delay = Math.random() * 5;
+
+    return (
+      <i
+        key={i}
+        className={icon}
         style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-          zIndex: 0
+          position: "absolute",
+          fontSize: `${size}px`,
+          opacity: 0.25,
+
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+
+          animation: `float${i} ${duration}s ease-in-out infinite`,
+          animationDelay: `${delay}s`
         }}
-      >
-        {techIcons.map((icon, i) => (
-          <i
-            key={i}
-            className={icon}
-            style={{
-              position: "absolute",
-              fontSize: "36px",
-              opacity: 0.35,
+      />
+    );
+  })}
 
-              top: `${Math.random() * 90}%`,
-              left: `${Math.random() * 90}%`,
+  {/* 🔥 RANDOMIZED FLOAT KEYFRAMES */}
+  <style>
+    {techIcons.map((_, i) => {
+      const x1 = Math.random() * 100 - 50;
+      const y1 = Math.random() * 100 - 50;
+      const x2 = Math.random() * 100 - 50;
+      const y2 = Math.random() * 100 - 50;
+      const x3 = Math.random() * 100 - 50;
+      const y3 = Math.random() * 100 - 50;
 
-              animation: `float${i} 6s infinite ease-in-out alternate`
-            }}
-          />
-        ))}
-
-        {/* 🔥 INLINE KEYFRAMES */}
-        <style>
-          {techIcons.map((_, i) => `
-            @keyframes float${i} {
-              0% { transform: translate(0, 0); }
-              25% { transform: translate(20px, -30px); }
-              50% { transform: translate(-20px, 20px); }
-              75% { transform: translate(10px, -10px); }
-              100% { transform: translate(0, 0); }
-            }
-          `).join("\n")}
-        </style>
-      </div>
+      return `
+        @keyframes float${i} {
+          0% { transform: translate(0px, 0px); }
+          25% { transform: translate(${x1}px, ${y1}px); }
+          50% { transform: translate(${x2}px, ${y2}px); }
+          75% { transform: translate(${x3}px, ${y3}px); }
+          100% { transform: translate(0px, 0px); }
+        }
+      `;
+    }).join("\n")}
+  </style>
+</div>
 
       {/* HEADER */}
       <header className="top">

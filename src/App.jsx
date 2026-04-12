@@ -5,6 +5,8 @@ import Projects from "./projects";
 import { useEffect } from "react";
 import { db } from "./firebase";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
+import Skills from "./Skills";
+
 
 function App() {
 
@@ -168,10 +170,10 @@ function App() {
       <main className="center">
         <div className="menu">
 
-          <div className="item skills">
+          <div className="item skills" onClick={() => openSection("skills")}>
             Skills
           </div>
-
+            
           <div className="item projects" onClick={() => openSection("projects")}>
             Projects
           </div>
@@ -241,8 +243,13 @@ function App() {
       {active === "projects" && (
         <Projects goHome={goHome} />
       )}
+      {active === "skills" && (
+  <Skills goHome={goHome} />
+)}
+      
 
     </div>
+    
   );
 }
 

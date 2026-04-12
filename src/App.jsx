@@ -8,6 +8,18 @@ function App() {
   const [active, setActive] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
 
+  // ✅ LIKE STATE
+  const [likes, setLikes] = useState(() => {
+    const saved = localStorage.getItem("homeLikes");
+    return saved ? JSON.parse(saved) : 0;
+  });
+
+  const handleLike = () => {
+    const updated = likes + 1;
+    setLikes(updated);
+    localStorage.setItem("homeLikes", updated);
+  };
+
   const techIcons = [
     "devicon-python-plain",
     "devicon-react-original",
@@ -43,19 +55,47 @@ function App() {
   return (
     <div className="app">
 
-      {/* BACKGROUND ICONS */}
-      <div className="bgLogos">
+      {/* 🔥 BACKGROUND ICONS (INLINE FLOAT FIX) */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 0
+        }}
+      >
         {techIcons.map((icon, i) => (
           <i
             key={i}
-            className={`bgIcon ${icon}`}
+            className={icon}
             style={{
+              position: "absolute",
+              fontSize: "36px",
+              opacity: 0.35,
+
               top: `${Math.random() * 90}%`,
               left: `${Math.random() * 90}%`,
-              animationDelay: `${i * 0.6}s`
+
+              animation: `float${i} 6s infinite ease-in-out alternate`
             }}
           />
         ))}
+
+        {/* 🔥 INLINE KEYFRAMES */}
+        <style>
+          {techIcons.map((_, i) => `
+            @keyframes float${i} {
+              0% { transform: translate(0, 0); }
+              25% { transform: translate(20px, -30px); }
+              50% { transform: translate(-20px, 20px); }
+              75% { transform: translate(10px, -10px); }
+              100% { transform: translate(0, 0); }
+            }
+          `).join("\n")}
+        </style>
       </div>
 
       {/* HEADER */}
@@ -65,8 +105,22 @@ function App() {
           <h1 className="name">Bhargav KN</h1>
         </div>
 
-        <div className="about" onClick={() => openSection("about")}>
-          About
+        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+          <div className="about" onClick={() => openSection("about")}>
+            About
+          </div>
+
+          {/* ❤️ LIKE */}
+          <div
+            onClick={handleLike}
+            style={{
+              cursor: "pointer",
+              fontSize: "1rem",
+              opacity: 0.8
+            }}
+          >
+            ❤️ {likes}
+          </div>
         </div>
       </header>
 

@@ -1,8 +1,7 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Projects from "./projects";
-import { useEffect } from "react";
 import { db } from "./firebase";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import Skills from "./Skills";
@@ -14,7 +13,7 @@ function App() {
   const [active, setActive] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
 
-  // ✅ MOBILE STATE (ADDED)
+  // ✅ MOBILE STATE
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -26,10 +25,24 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ FIREBASE LIKE STATE
+  // ✅ SWIPE LOGIC (ADDED)
+  const [touchStartY, setTouchStartY] = useState(0);
+
+  const handleTouchStart = (e) => {
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+
+    if (touchEndY - touchStartY > 80) {
+      goHome();
+    }
+  };
+
+  // ✅ FIREBASE LIKES
   const [likes, setLikes] = useState(0);
 
-  // ✅ FETCH LIKES FROM FIREBASE
   useEffect(() => {
     const fetchLikes = async () => {
       const ref = doc(db, "likes", "main");
@@ -45,10 +58,8 @@ function App() {
     fetchLikes();
   }, []);
 
-  // ✅ UPDATE LIKES IN FIREBASE
   const handleLike = async () => {
     const ref = doc(db, "likes", "main");
-
     const newCount = likes + 1;
     setLikes(newCount);
 
@@ -58,25 +69,31 @@ function App() {
   };
 
   const techIcons = [
-    "devicon-python-plain",
-    "devicon-react-original",
-    "devicon-nodejs-plain",
-    "devicon-git-plain",
-    "devicon-mysql-plain",
-    "devicon-java-plain",
-    "devicon-html5-plain",
-    "devicon-css3-plain",
-    "devicon-javascript-plain",
-    "devicon-postgresql-plain",
+    "devicon-python-plain colored",
+    "devicon-react-original colored",
+    "devicon-nodejs-plain colored",
+    "devicon-git-plain colored",
+    "devicon-mysql-plain colored",
+    "devicon-java-plain colored",
+    "devicon-html5-plain colored",
+    "devicon-css3-plain colored",
+    "devicon-javascript-plain colored",
+    "devicon-postgresql-plain colored",
     "devicon-linux-plain",
-    "devicon-docker-plain",
-    "devicon-pytorch-plain",
-    "devicon-keras-plain",
-    "devicon-matplotlib-plain",
-    "devicon-numpy-plain",
-    "devicon-pandas-plain",
-    "devicon-jupyter-plain",
-    "devicon-ai-plain"
+    "devicon-docker-plain colored",
+    "devicon-pytorch-plain colored",
+    "devicon-keras-plain colored",
+    "devicon-matplotlib-plain colored",
+    "devicon-numpy-plain colored",
+    "devicon-pandas-plain colored",
+    "devicon-jupyter-plain colored",
+    "devicon-ai-plain",
+    "devicon-tensorflow-plain colored",
+    "devicon-django-plain colored",
+    "devicon-scipy-plain colored",
+    "devicon-archlinux-plain colored",
+    "devicon-pinecone-plain colored",
+    "devicon-openai-plain"
   ];
 
   const goHome = () => {
@@ -117,7 +134,7 @@ function App() {
               style={{
                 position: "absolute",
                 fontSize: `${size}px`,
-                opacity: 0.25,
+                opacity: 0.5,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
                 animation: `float${i} ${duration}s ease-in-out infinite`,
@@ -212,7 +229,12 @@ function App() {
 
       {/* PROFILE */}
       {profileOpen && (
-        <div className="profileViewer" onClick={goHome}>
+        <div
+          className="profileViewer"
+          onClick={!isMobile ? goHome : undefined}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="profileContent" onClick={(e) => e.stopPropagation()}>
             <img src="/profile.jpeg" className="profileLarge" />
 
@@ -234,7 +256,12 @@ function App() {
 
       {/* ABOUT */}
       {active === "about" && (
-        <div className="viewer" onClick={goHome}>
+        <div
+          className="viewer"
+          onClick={!isMobile ? goHome : undefined}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="viewerContent" onClick={(e) => e.stopPropagation()}>
 
             <div className="aboutProfile">
@@ -251,25 +278,18 @@ function App() {
             <h2>About</h2>
 
             <p className="subtitle">
-              Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights. Passionate about building innovative solutions and continuously exploring new technologies.
+              Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights.
             </p>
-
-            <div className="list">
-              <div className="listItem">Completed 10th & 12th – National Centre for Excellence</div>
-              <div className="listItem">BCA – Gitam (Deemed-to-be University)</div>
-              <div className="listItem">Pursuing MCA (AI & ML) – Jain (Deemed-to-be University)</div>
-              <div className="listItem">Highly driven in building impactful solutions with a strong commitment to delivering quality work consistently and meeting deadlines without compromise.</div>
-            </div>
 
           </div>
         </div>
       )}
 
-      {/* PROJECTS */}
-      {active === "projects" && <Projects goHome={goHome} />}
-      {active === "skills" && <Skills goHome={goHome} />}
-      {active === "experience" && <Exp goHome={goHome} />}
-      {active === "achievements" && <Achievements goHome={goHome} />}
+      {/* OTHER SECTIONS */}
+      {active === "projects" && <Projects goHome={goHome} isMobile={isMobile} />}
+      {active === "skills" && <Skills goHome={goHome} isMobile={isMobile} />}
+      {active === "experience" && <Exp goHome={goHome} isMobile={isMobile} />}
+      {active === "achievements" && <Achievements goHome={goHome} isMobile={isMobile} />}
 
     </div>
   );

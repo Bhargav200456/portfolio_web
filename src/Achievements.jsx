@@ -1,7 +1,27 @@
-function Achievements({ goHome }) {
+import { useState } from "react";
+
+function Achievements({ goHome, isMobile }) {
+
+  // ✅ SWIPE LOGIC
+  const [touchStartY, setTouchStartY] = useState(0);
+
+  const handleTouchStart = (e) => {
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+
+    if (touchEndY - touchStartY > 80) {
+      goHome();
+    }
+  };
+
   return (
     <div
-      onClick={goHome}
+      onClick={!isMobile ? goHome : undefined}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       style={{
         position: "fixed",
         top: 0,

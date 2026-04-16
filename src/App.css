@@ -52,7 +52,7 @@ body{
 .bgIcon{
   position:absolute;
   font-size:36px;
-  opacity:0.45;
+  opacity:0.75;
   animation: float 12s infinite ease-in-out;
 }
 

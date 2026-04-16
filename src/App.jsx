@@ -174,7 +174,7 @@ function App() {
               style={{
                 position: "absolute",
                 fontSize: `${size}px`,
-                opacity: 0.5,
+                opacity: 1,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
                 animation: `float${i} ${duration}s ease-in-out infinite`,
@@ -333,7 +333,6 @@ function App() {
         </div>
       )}
 
-      {/* OTHER SECTIONS */}
       {active === "projects" && <Projects goHome={goHome} isMobile={isMobile} />}
       {active === "skills" && <Skills goHome={goHome} isMobile={isMobile} />}
       {active === "experience" && <Exp goHome={goHome} isMobile={isMobile} />}

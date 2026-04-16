@@ -42,16 +42,37 @@ function App() {
 
   // ✅ FIREBASE LIKES
   const [likes, setLikes] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  // 🔹 UNIQUE USER ID
+  function getUserId() {
+    let userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      userId = "user_" + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("userId", userId);
+    }
+
+    return userId;
+  }
 
   useEffect(() => {
     const fetchLikes = async () => {
       const ref = doc(db, "likes", "main");
       const snap = await getDoc(ref);
 
+      const userId = getUserId();
+
       if (snap.exists()) {
-        setLikes(snap.data().count);
+        const data = snap.data();
+
+        setLikes(data.count || 0);
+
+        if (data.likedUsers && data.likedUsers[userId]) {
+          setLiked(true);
+        }
       } else {
-        await setDoc(ref, { count: 0 });
+        await setDoc(ref, { count: 0, likedUsers: {} });
       }
     };
 
@@ -59,13 +80,18 @@ function App() {
   }, []);
 
   const handleLike = async () => {
+    if (liked) return;
+
     const ref = doc(db, "likes", "main");
-    const newCount = likes + 1;
-    setLikes(newCount);
+    const userId = getUserId();
 
     await updateDoc(ref, {
-      count: newCount
+      count: likes + 1,
+      [`likedUsers.${userId}`]: true
     });
+
+    setLikes((prev) => prev + 1);
+    setLiked(true);
   };
 
   const techIcons = [
@@ -193,7 +219,7 @@ function App() {
               opacity: 0.8
             }}
           >
-            ❤️ {likes}
+            {liked ? "❤️ Liked" : "🤍 Like"} {likes}
           </div>
         </div>
       </header>
@@ -280,7 +306,7 @@ function App() {
             <p className="subtitle">
               Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights.
             </p>
-
+          <li></li>
           </div>
         </div>
       )}

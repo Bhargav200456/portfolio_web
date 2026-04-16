@@ -62,13 +62,16 @@ function App() {
       const snap = await getDoc(ref);
 
       const userId = getUserId();
+      const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
 
       if (snap.exists()) {
         const data = snap.data();
 
         setLikes(data.count || 0);
 
-        if (data.likedUsers && data.likedUsers[userId]) {
+        const lastLikedTime = data.likedUsers?.[userId];
+
+        if (lastLikedTime && Date.now() - lastLikedTime < THIRTY_DAYS) {
           setLiked(true);
         }
       } else {
@@ -80,14 +83,25 @@ function App() {
   }, []);
 
   const handleLike = async () => {
-    if (liked) return;
-
     const ref = doc(db, "likes", "main");
     const userId = getUserId();
 
+    const snap = await getDoc(ref);
+    const data = snap.data();
+
+    const now = Date.now();
+    const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+
+    const lastLikedTime = data?.likedUsers?.[userId];
+
+    if (lastLikedTime && now - lastLikedTime < THIRTY_DAYS) {
+      setLiked(true);
+      return;
+    }
+
     await updateDoc(ref, {
-      count: likes + 1,
-      [`likedUsers.${userId}`]: true
+      count: (data?.count || 0) + 1,
+      [`likedUsers.${userId}`]: now
     });
 
     setLikes((prev) => prev + 1);

@@ -233,7 +233,7 @@ function App() {
               opacity: 0.8
             }}
           >
-            {liked ? "❤️ Liked" : "🤍 Like"} {likes}
+            {liked ? "❤️ " : "🤍 Like"} {likes}
           </div>
         </div>
       </header>
@@ -318,8 +318,16 @@ function App() {
             <h2>About</h2>
 
             <p className="subtitle">
-              Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights.
-            </p>
+  Computer Science student with a strong foundation in Python, data engineering, and AI, focused on building scalable systems, developing efficient data pipelines, and transforming complex data into actionable insights.
+
+  <br /><br />
+
+  • 10th grade & 12th grade – National Centre for Excellence  
+  <br />
+  • Bachelor of Computer Applications (BCA) – Gitam Deemed to be University  
+  <br />
+  • Master of Computer Applications (MCA) in AI/ML (Pursuing) – Jain Deemed to be University
+</p>
           <li></li>
           </div>
         </div>

@@ -1,0 +1,1658 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #090a08;
+  color: #f5f5ef;
+
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  width: 100%;
+  height: 100vh;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 82% 35%,
+      rgba(190, 255, 60, 0.075),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 75%,
+      rgba(80, 90, 160, 0.06),
+      transparent 28%
+    ),
+    #090a08;
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+========================================================= */
+
+.app::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    74px 74px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black 0%,
+      transparent 90%
+    );
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.topbar {
+  position: relative;
+
+  z-index: 50;
+
+  width: 100%;
+
+  height: 88px;
+
+  padding:
+    0 clamp(28px, 6.5vw, 110px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background:
+    rgba(8, 9, 7, 0.82);
+
+  backdrop-filter:
+    blur(18px);
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  flex-shrink: 0;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border:
+    2px solid
+    rgba(210, 255, 65, 0.75);
+}
+
+.brand span {
+  color: #f4f4ef;
+
+  font-size: 19px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    -0.5px;
+}
+
+
+/* =========================================================
+   DESKTOP NAV
+========================================================= */
+
+.nav {
+  position: absolute;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+.navItem {
+  border: none;
+
+  background: transparent;
+
+  color:
+    rgba(255, 255, 255, 0.48);
+
+  padding:
+    11px 14px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.navItem:hover {
+  color: white;
+
+  background:
+    rgba(255, 255, 255, 0.05);
+}
+
+.navItem.active {
+  color: white;
+
+  background:
+    rgba(255, 255, 255, 0.085);
+}
+
+
+/* =========================================================
+   NAV ACTIONS
+========================================================= */
+
+.navActions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   LIKE
+========================================================= */
+
+.likeButton {
+  height: 48px;
+
+  min-width: 76px;
+
+  padding:
+    0 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  color:
+    rgba(255, 255, 255, 0.7);
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+.likeButton:hover {
+  color:
+    #d4ff3f;
+
+  border-color:
+    rgba(210, 255, 60, 0.35);
+}
+
+.likeButton.liked {
+  color:
+    #d4ff3f;
+}
+
+
+/* =========================================================
+   CONNECT
+========================================================= */
+
+.connectButton {
+  height: 48px;
+
+  padding:
+    0 22px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background:
+    #d4ff3f;
+
+  color:
+    #080908;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.connectButton:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 30px
+    rgba(210, 255, 60, 0.18);
+}
+
+
+/* =========================================================
+   PAGE CONTENT
+========================================================= */
+
+.pageContent {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  height:
+    calc(100vh - 88px);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.homeSection {
+  width: 100%;
+
+  height: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.12fr)
+    minmax(340px, 0.68fr);
+
+  align-items: center;
+
+  gap:
+    clamp(35px, 5vw, 85px);
+
+  padding:
+    30px
+    clamp(30px, 7vw, 115px);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.heroContent {
+  width: 100%;
+
+  max-width:
+    830px;
+
+  position: relative;
+
+  z-index: 3;
+
+  transform:
+    translateY(-4px);
+}
+
+
+/* =========================================================
+   AVAILABILITY
+========================================================= */
+
+.availability {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-bottom:
+    27px;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  font-family:
+    monospace;
+
+  font-size:
+    13px;
+
+  letter-spacing:
+    1px;
+}
+
+.availabilityDot {
+  width: 9px;
+
+  height: 9px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background:
+    #d4ff3f;
+
+  box-shadow:
+    0 0 14px
+    rgba(210, 255, 60, 0.85);
+}
+
+.availabilitySeparator {
+  color:
+    rgba(255, 255, 255, 0.2);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.heroTitle {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0;
+
+  margin:
+    0 0 26px 0;
+
+  font-size:
+    clamp(58px, 6vw, 94px);
+
+  line-height:
+    0.9;
+
+  letter-spacing:
+    -5px;
+
+  font-weight:
+    750;
+}
+
+.heroWhite {
+  color:
+    #f5f5ef;
+}
+
+.heroGreen {
+  color:
+    #d4ff3f;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.heroDescription {
+  max-width:
+    760px;
+
+  margin:
+    0 0 23px 0;
+
+  color:
+    rgba(255, 255, 255, 0.57);
+
+  font-size:
+    clamp(15px, 1.12vw, 18px);
+
+  line-height:
+    1.55;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.heroButtons {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.primaryButton,
+.secondaryButton {
+  height: 46px;
+
+  padding:
+    0 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  border-radius:
+    9px;
+
+  font-size:
+    14px;
+
+  font-weight:
+    650;
+
+  cursor:
+    pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primaryButton {
+  border:
+    1px solid
+    #d4ff3f;
+
+  background:
+    #d4ff3f;
+
+  color:
+    #080908;
+}
+
+.primaryButton:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(210, 255, 60, 0.15);
+}
+
+.secondaryButton {
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  color:
+    rgba(255, 255, 255, 0.72);
+}
+
+.secondaryButton:hover {
+  background:
+    rgba(255, 255, 255, 0.07);
+
+  color:
+    white;
+}
+
+
+/* =========================================================
+   HERO CARD
+========================================================= */
+
+.heroCard {
+  width: 100%;
+
+  max-width:
+    470px;
+
+  height:
+    min(490px, calc(100vh - 150px));
+
+  justify-self:
+    end;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    38px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.11);
+
+  border-radius:
+    26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.018)
+    );
+
+  backdrop-filter:
+    blur(20px);
+
+  box-shadow:
+    0 30px 80px
+    rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.heroCardGlow {
+  position: absolute;
+
+  width: 300px;
+
+  height: 300px;
+
+  top: -110px;
+
+  right: -100px;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(210, 255, 60, 0.1);
+
+  filter:
+    blur(80px);
+
+  pointer-events:
+    none;
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+.heroProfile {
+  position: relative;
+
+  z-index: 2;
+
+  width: 110px;
+
+  height: 110px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border:
+    4px solid
+    rgba(210, 255, 60, 0.7);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.heroCardContent {
+  position: relative;
+
+  z-index: 2;
+}
+
+.cardLabel {
+  display: block;
+
+  margin-bottom:
+    17px;
+
+  color:
+    rgba(255, 255, 255, 0.38);
+
+  font-family:
+    monospace;
+
+  font-size:
+    11px;
+
+  letter-spacing:
+    1.5px;
+}
+
+.heroCard h2 {
+  margin:
+    0 0 14px 0;
+
+  font-size:
+    clamp(28px, 2.4vw, 40px);
+
+  line-height:
+    1.05;
+
+  letter-spacing:
+    -1.5px;
+}
+
+.heroCard p {
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  font-size:
+    14px;
+
+  line-height:
+    1.5;
+}
+
+
+/* =========================================================
+   TECH TAGS
+========================================================= */
+
+.techTags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top:
+    22px;
+}
+
+.techTags span {
+  padding:
+    7px 10px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius:
+    7px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  color:
+    rgba(255, 255, 255, 0.56);
+
+  font-size:
+    11px;
+}
+
+
+/* =========================================================
+   FULL SCREEN SECTIONS
+========================================================= */
+
+.fullSection {
+  width: 100%;
+
+  height: 100%;
+
+  padding:
+    35px
+    clamp(30px, 7vw, 115px);
+
+  overflow: hidden;
+}
+
+.sectionInner {
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.sectionEyebrow {
+  display: block;
+
+  margin-bottom:
+    13px;
+
+  color:
+    #d4ff3f;
+
+  font-family:
+    monospace;
+
+  font-size:
+    11px;
+
+  letter-spacing:
+    2px;
+}
+
+.sectionTitle {
+  margin:
+    0 0 30px 0;
+
+  font-size:
+    clamp(48px, 5vw, 76px);
+
+  line-height:
+    0.95;
+
+  letter-spacing:
+    -4px;
+}
+
+.sectionTitle span {
+  color:
+    #d4ff3f;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.aboutGrid {
+  width: 100%;
+
+  max-width:
+    1100px;
+
+  display: grid;
+
+  grid-template-columns:
+    1.25fr
+    0.75fr;
+
+  gap:
+    16px;
+}
+
+.aboutMainCard,
+.educationCard {
+  min-height:
+    270px;
+
+  padding:
+    28px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius:
+    19px;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+}
+
+.aboutProfileRow {
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    17px;
+
+  margin-bottom:
+    22px;
+}
+
+.aboutProfileRow img {
+  width: 66px;
+
+  height: 66px;
+
+  object-fit: cover;
+
+  border-radius:
+    50%;
+
+  border:
+    2px solid
+    #d4ff3f;
+}
+
+.aboutProfileRow h2 {
+  margin-bottom:
+    4px;
+
+  font-size:
+    22px;
+}
+
+.aboutProfileRow p {
+  color:
+    rgba(255, 255, 255, 0.43);
+
+  font-size:
+    13px;
+}
+
+.aboutText {
+  max-width:
+    700px;
+
+  color:
+    rgba(255, 255, 255, 0.58);
+
+  font-size:
+    15px;
+
+  line-height:
+    1.7;
+}
+
+.educationCard {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.educationItem {
+  display: flex;
+
+  flex-direction: column;
+
+  gap:
+    6px;
+
+  padding:
+    15px 0;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+}
+
+.educationItem:last-child {
+  border-bottom:
+    none;
+}
+
+.educationItem strong {
+  font-size:
+    14px;
+}
+
+.educationItem span {
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  font-size:
+    12px;
+}
+
+.educationItem small {
+  color:
+    #d4ff3f;
+
+  font-size:
+    11px;
+}
+
+
+/* =========================================================
+   PROFILE MODAL
+========================================================= */
+
+.profileOverlay {
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    100;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    20px;
+
+  background:
+    rgba(0, 0, 0, 0.72);
+
+  backdrop-filter:
+    blur(12px);
+}
+
+.profileModal {
+  width:
+    min(420px, 100%);
+
+  padding:
+    38px;
+
+  position:
+    relative;
+
+  text-align:
+    center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius:
+    22px;
+
+  background:
+    #11130f;
+
+  box-shadow:
+    0 30px 100px
+    rgba(0, 0, 0, 0.5);
+}
+
+.modalClose {
+  position:
+    absolute;
+
+  top:
+    12px;
+
+  right:
+    17px;
+
+  border:
+    none;
+
+  background:
+    transparent;
+
+  color:
+    rgba(255, 255, 255, 0.5);
+
+  font-size:
+    26px;
+
+  cursor:
+    pointer;
+}
+
+.profileModalImage {
+  width:
+    105px;
+
+  height:
+    105px;
+
+  object-fit:
+    cover;
+
+  border-radius:
+    50%;
+
+  border:
+    3px solid
+    #d4ff3f;
+
+  margin-bottom:
+    18px;
+}
+
+.profileModal h2 {
+  margin-bottom:
+    7px;
+
+  font-size:
+    27px;
+}
+
+.profileModal p {
+  color:
+    rgba(255, 255, 255, 0.47);
+
+  font-size:
+    13px;
+}
+
+.profileSocials {
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  gap:
+    10px;
+
+  margin:
+    23px 0;
+}
+
+.profileSocials a {
+  width:
+    43px;
+
+  height:
+    43px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+
+  border-radius:
+    9px;
+
+  color:
+    rgba(255, 255, 255, 0.7);
+
+  text-decoration:
+    none;
+}
+
+.profileSocials a:hover {
+  color:
+    #d4ff3f;
+
+  border-color:
+    rgba(210, 255, 60, 0.4);
+}
+
+.profileEmail {
+  color:
+    rgba(255, 255, 255, 0.38);
+
+  font-size:
+    12px;
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobileNav {
+  display:
+    none;
+}
+
+
+/* =========================================================
+   LAPTOP / TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .topbar {
+    padding:
+      0 35px;
+  }
+
+  .homeSection {
+    padding:
+      25px 40px;
+
+    gap:
+      35px;
+  }
+
+  .heroTitle {
+    font-size:
+      clamp(52px, 6vw, 78px);
+  }
+
+  .heroCard {
+    max-width:
+      390px;
+
+    height:
+      440px;
+
+    padding:
+      30px;
+  }
+
+  .heroProfile {
+    width:
+      85px;
+
+    height:
+      85px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALLER LAPTOP
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .nav {
+    display:
+      none;
+  }
+
+  .homeSection {
+    grid-template-columns:
+      1fr;
+
+    justify-items:
+      center;
+
+    padding:
+      35px;
+  }
+
+  .heroContent {
+    text-align:
+      center;
+
+    max-width:
+      800px;
+  }
+
+  .availability {
+    justify-content:
+      center;
+  }
+
+  .heroButtons {
+    justify-content:
+      center;
+  }
+
+  .heroCard {
+    display:
+      none;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  body {
+    overflow:
+      hidden;
+  }
+
+  .topbar {
+    height:
+      70px;
+
+    padding:
+      0 18px;
+  }
+
+  .brand img {
+    width:
+      36px;
+
+    height:
+      36px;
+  }
+
+  .brand span {
+    font-size:
+      17px;
+  }
+
+  .likeButton {
+    height:
+      40px;
+
+    min-width:
+      55px;
+
+    padding:
+      0 10px;
+  }
+
+  .connectButton {
+    height:
+      40px;
+
+    padding:
+      0 14px;
+
+    font-size:
+      13px;
+  }
+
+  .pageContent {
+    height:
+      calc(100vh - 130px);
+  }
+
+
+  /* HOME */
+
+  .homeSection {
+    height:
+      100%;
+
+    padding:
+      25px 20px;
+
+    display:
+      flex;
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+
+    justify-content:
+      center;
+
+    gap:
+      0;
+  }
+
+  .heroContent {
+    text-align:
+      left;
+
+    transform:
+      none;
+  }
+
+  .availability {
+    justify-content:
+      flex-start;
+
+    font-size:
+      9px;
+
+    margin-bottom:
+      20px;
+
+    letter-spacing:
+      0.5px;
+  }
+
+  .heroTitle {
+    font-size:
+      clamp(48px, 13vw, 68px);
+
+    letter-spacing:
+      -3px;
+
+    line-height:
+      0.91;
+
+    margin-bottom:
+      22px;
+  }
+
+  .heroDescription {
+    font-size:
+      13px;
+
+    line-height:
+      1.55;
+
+    margin-bottom:
+      20px;
+  }
+
+  .heroButtons {
+    justify-content:
+      flex-start;
+
+    width:
+      100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    height:
+      43px;
+
+    padding:
+      0 13px;
+
+    font-size:
+      11px;
+  }
+
+
+  /* FULL SECTIONS */
+
+  .fullSection {
+    height:
+      100%;
+
+    padding:
+      25px 20px;
+
+    overflow:
+      hidden;
+  }
+
+  .sectionInner {
+    justify-content:
+      center;
+  }
+
+  .sectionTitle {
+    font-size:
+      44px;
+
+    letter-spacing:
+      -2.5px;
+  }
+
+
+  /* ABOUT */
+
+  .aboutGrid {
+    display:
+      flex;
+
+    flex-direction:
+      column;
+
+    gap:
+      10px;
+  }
+
+  .aboutMainCard,
+  .educationCard {
+    min-height:
+      auto;
+
+    padding:
+      18px;
+  }
+
+  .aboutProfileRow img {
+    width:
+      52px;
+
+    height:
+      52px;
+  }
+
+  .aboutProfileRow h2 {
+    font-size:
+      18px;
+  }
+
+  .aboutText {
+    font-size:
+      12px;
+
+    line-height:
+      1.55;
+  }
+
+
+  /* MOBILE NAV */
+
+  .mobileNav {
+    position:
+      fixed;
+
+    left:
+      0;
+
+    right:
+      0;
+
+    bottom:
+      0;
+
+    z-index:
+      60;
+
+    height:
+      60px;
+
+    display:
+      flex;
+
+    align-items:
+      center;
+
+    justify-content:
+      flex-start;
+
+    overflow-x:
+      auto;
+
+    background:
+      rgba(8, 9, 7, 0.94);
+
+    border-top:
+      1px solid
+      rgba(255, 255, 255, 0.08);
+
+    backdrop-filter:
+      blur(15px);
+  }
+
+  .mobileNavItem {
+    flex:
+      0 0 auto;
+
+    border:
+      none;
+
+    background:
+      transparent;
+
+    color:
+      rgba(255, 255, 255, 0.4);
+
+    font-size:
+      10px;
+
+    padding:
+      10px 12px;
+
+    cursor:
+      pointer;
+  }
+
+  .mobileNavItem.active {
+    color:
+      #d4ff3f;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SHORT SCREENS
+========================================================= */
+
+@media (max-height: 750px) and (min-width: 768px) {
+
+  .topbar {
+    height:
+      76px;
+  }
+
+  .pageContent {
+    height:
+      calc(100vh - 76px);
+  }
+
+  .homeSection {
+    padding:
+      20px 7vw;
+  }
+
+  .availability {
+    margin-bottom:
+      18px;
+  }
+
+  .heroTitle {
+    font-size:
+      clamp(48px, 5.5vw, 76px);
+
+    margin-bottom:
+      20px;
+  }
+
+  .heroDescription {
+    font-size:
+      14px;
+
+    margin-bottom:
+      18px;
+  }
+
+  .heroCard {
+    height:
+      410px;
+
+    padding:
+      28px;
+  }
+
+}

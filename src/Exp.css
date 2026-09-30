@@ -1,0 +1,352 @@
+/* =========================================================
+   EXPERIENCE PAGE
+   ========================================================= */
+
+.experiencePage {
+  width: 100%;
+  height: 100%;
+  padding: 42px 6vw 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.experienceHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 34px;
+}
+
+.experienceTitle {
+  margin: 10px 0 0;
+  font-size: clamp(48px, 5vw, 76px);
+  line-height: 0.95;
+  letter-spacing: -3px;
+  font-weight: 800;
+}
+
+.experienceTitle span {
+  color: #b7ff00;
+}
+
+.experienceBackButton {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.experienceBackButton:hover {
+  background: #b7ff00;
+  color: #050505;
+  border-color: #b7ff00;
+}
+
+/* =========================================================
+   EXPERIENCE LIST
+   ========================================================= */
+
+.experienceList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  min-height: 0;
+}
+
+.experienceCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 80px 1fr 40px;
+  align-items: center;
+  min-height: 190px;
+  padding: 28px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.018)
+    );
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+
+.experienceCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #b7ff00;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.experienceCard:hover {
+  transform: translateX(6px);
+  border-color: rgba(183, 255, 0, 0.35);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(183, 255, 0, 0.07),
+      rgba(255, 255, 255, 0.02)
+    );
+}
+
+.experienceCard:hover::before {
+  opacity: 1;
+}
+
+/* =========================================================
+   NUMBER
+   ========================================================= */
+
+.experienceNumber {
+  font-size: 14px;
+  font-weight: 700;
+  color: #b7ff00;
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.experienceMain {
+  min-width: 0;
+}
+
+.experienceMeta {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 9px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.experienceMain h2 {
+  margin: 0;
+  font-size: clamp(25px, 2.3vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+.experienceMain h3 {
+  margin: 7px 0 12px;
+  color: #b7ff00;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.experienceMain p {
+  max-width: 780px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   TECHNOLOGIES
+   ========================================================= */
+
+.experienceTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.experienceTech span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11px;
+}
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.experienceArrow {
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.3);
+  transition: 0.25s ease;
+}
+
+.experienceCard:hover .experienceArrow {
+  color: #b7ff00;
+  transform: translate(3px, -3px);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.experienceFooter {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.experienceFooter p {
+  margin: 0;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.experienceLine {
+  height: 1px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .experiencePage {
+    padding: 32px 5vw 20px;
+  }
+
+  .experienceCard {
+    grid-template-columns: 55px 1fr 30px;
+    min-height: 175px;
+    padding: 24px;
+  }
+
+  .experienceMain p {
+    max-width: 650px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .experiencePage {
+    padding: 25px 20px 18px;
+  }
+
+  .experienceHeader {
+    align-items: flex-start;
+    margin-bottom: 22px;
+  }
+
+  .experienceTitle {
+    font-size: 42px;
+    letter-spacing: -2px;
+  }
+
+  .experienceBackButton {
+    padding: 9px 13px;
+    font-size: 11px;
+  }
+
+  .experienceList {
+    gap: 12px;
+  }
+
+  .experienceCard {
+    grid-template-columns: 35px 1fr;
+    min-height: 0;
+    padding: 20px 18px;
+  }
+
+  .experienceArrow {
+    display: none;
+  }
+
+  .experienceNumber {
+    align-self: flex-start;
+    padding-top: 3px;
+  }
+
+  .experienceMain h2 {
+    font-size: 22px;
+  }
+
+  .experienceMain h3 {
+    margin: 5px 0 9px;
+  }
+
+  .experienceMain p {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .experienceTech {
+    margin-top: 11px;
+  }
+
+  .experienceTech span {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .experienceFooter {
+    margin-top: 15px;
+  }
+
+  .experienceFooter p {
+    font-size: 9px;
+  }
+}
+
+/* =========================================================
+   SHORT SCREENS
+   ========================================================= */
+
+@media (max-height: 720px) and (min-width: 651px) {
+  .experiencePage {
+    padding-top: 25px;
+  }
+
+  .experienceHeader {
+    margin-bottom: 20px;
+  }
+
+  .experienceCard {
+    min-height: 145px;
+    padding: 20px 26px;
+  }
+
+  .experienceMain h2 {
+    font-size: 28px;
+  }
+
+  .experienceMain p {
+    font-size: 12px;
+  }
+
+  .experienceTech {
+    margin-top: 10px;
+  }
+
+  .experienceFooter {
+    margin-top: 12px;
+  }
+}

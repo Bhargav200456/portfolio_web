@@ -1,0 +1,328 @@
+/* =========================================================
+   ACHIEVEMENTS PAGE
+   ========================================================= */
+
+.achievementsPage {
+  width: 100%;
+  height: 100%;
+  padding: 42px 6vw 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.achievementsHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.achievementsTitle {
+  margin: 10px 0 0;
+  font-size: clamp(48px, 5vw, 76px);
+  line-height: 0.95;
+  letter-spacing: -3px;
+  font-weight: 800;
+}
+
+.achievementsTitle span {
+  color: #b7ff00;
+}
+
+.achievementsBackButton {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.achievementsBackButton:hover {
+  background: #b7ff00;
+  color: #050505;
+  border-color: #b7ff00;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.achievementsGrid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.achievementCard {
+  position: relative;
+  min-height: 0;
+  padding: 25px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.015)
+    );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.achievementCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #b7ff00;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: 0.3s ease;
+}
+
+.achievementCard:hover {
+  border-color: rgba(183, 255, 0, 0.3);
+  transform: translateY(-4px);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(183, 255, 0, 0.07),
+      rgba(255, 255, 255, 0.02)
+    );
+}
+
+.achievementCard:hover::before {
+  transform: scaleX(1);
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+.achievementTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.achievementNumber {
+  color: #b7ff00;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.achievementArrow {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 23px;
+  transition: 0.25s ease;
+}
+
+.achievementCard:hover .achievementArrow {
+  color: #b7ff00;
+  transform: translate(3px, -3px);
+}
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.achievementContent {
+  margin-top: 20px;
+}
+
+.achievementYear {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.achievementContent h2 {
+  max-width: 500px;
+  margin: 0;
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+}
+
+.achievementContent h3 {
+  margin: 9px 0 12px;
+  color: #b7ff00;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.achievementContent p {
+  max-width: 550px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.achievementsFooter {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.achievementsFooter p {
+  margin: 0;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.achievementsLine {
+  height: 1px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .achievementsPage {
+    padding: 32px 5vw 20px;
+  }
+
+  .achievementsCard {
+    padding: 22px;
+  }
+
+  .achievementContent h2 {
+    font-size: 22px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .achievementsPage {
+    padding: 25px 20px 18px;
+  }
+
+  .achievementsHeader {
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .achievementsTitle {
+    font-size: 42px;
+    letter-spacing: -2px;
+  }
+
+  .achievementsBackButton {
+    padding: 9px 13px;
+    font-size: 11px;
+  }
+
+  .achievementsGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .achievementCard {
+    padding: 17px 19px;
+  }
+
+  .achievementContent {
+    margin-top: 12px;
+  }
+
+  .achievementContent h2 {
+    font-size: 18px;
+  }
+
+  .achievementContent h3 {
+    margin: 6px 0 7px;
+    font-size: 11px;
+  }
+
+  .achievementContent p {
+    font-size: 11px;
+  }
+
+  .achievementArrow {
+    font-size: 18px;
+  }
+
+  .achievementsFooter {
+    margin-top: 12px;
+  }
+
+  .achievementsFooter p {
+    font-size: 8px;
+  }
+}
+
+/* =========================================================
+   SHORT SCREENS
+   ========================================================= */
+
+@media (max-height: 720px) and (min-width: 651px) {
+  .achievementsPage {
+    padding-top: 25px;
+  }
+
+  .achievementsHeader {
+    margin-bottom: 18px;
+  }
+
+  .achievementCard {
+    padding: 19px 23px;
+  }
+
+  .achievementContent {
+    margin-top: 12px;
+  }
+
+  .achievementContent h2 {
+    font-size: 21px;
+  }
+
+  .achievementContent h3 {
+    margin: 6px 0 8px;
+  }
+
+  .achievementContent p {
+    font-size: 11px;
+  }
+
+  .achievementsFooter {
+    margin-top: 12px;
+  }
+}

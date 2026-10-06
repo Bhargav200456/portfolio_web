@@ -21,7 +21,7 @@ function Projects() {
         "Engagement insights",
       ],
       technologies: ["React", "Python", "NLP", "Machine Learning"],
-      github: "",
+      github: "https://github.com/Bhargav200456/instagram_analytics",
     },
     {
       number: "02",
@@ -47,7 +47,7 @@ function Projects() {
         "Pydantic",
         "Multi-threading",
       ],
-      github: "",
+      github: "https://github.com/Bhargav200456/Knowledge-Graph-creation-",
     },
     {
       number: "03",
@@ -67,7 +67,7 @@ function Projects() {
         "Financial insights",
       ],
       technologies: ["Python", "PyPDF2", "OpenAI API", "LLM", "NLP"],
-      github: "",
+      github: "https://github.com/Bhargav200456/BALANCE_SHEET",
     },
     {
       number: "04",
@@ -119,7 +119,7 @@ function Projects() {
         "Web Speech API",
         "Deep Translator",
       ],
-      github: "",
+      github: "https://github.com/Bhargav200456/voice-backend-",
     },
     {
       number: "06",
@@ -139,7 +139,7 @@ function Projects() {
         "Translation history",
       ],
       technologies: ["Python", "PostgreSQL", "PyPI", "Git"],
-      github: "",
+      github: "https://github.com/Bhargav200456/langtranslate",
     },
     {
       number: "07",
@@ -165,7 +165,7 @@ function Projects() {
         "Async Processing",
         "JavaScript",
       ],
-      github: "",
+      github: "https://github.com/Bhargav200456/email_scheduler",
     },
     {
       number: "08",
